@@ -7,7 +7,7 @@ def xfdfgen(name, field_dictionary):
     and a dictionary containing the fields
     :param name: path to the pdf document
     :param field_dictionary: a dictionary with form field id as key and their values as value
-    :return:
+    :return: an xml.dom.minidom.Document in xfdf format
     """
 
     xfdf = xml.dom.minidom.Document()
@@ -67,7 +67,7 @@ class Xfdf:
 
     def get_xfdf(self):
         """
-        :return: raw xfdf documentá
+        :return: raw xfdf document
         """
         return self.xfdf
 
