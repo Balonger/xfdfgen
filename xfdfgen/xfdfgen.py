@@ -76,8 +76,6 @@ class Xfdf:
         # Sanity checks
         if not output_path.endswith(".xfdf"):
             raise ValueError(f"Output must end with .xfdf\n{output_path} is not a valid output path.")
-        if os.path.isfile(output_path):
-            raise OSError(f"{output_path} already exists.")
 
         try:
             with open(output_path, "w") as xfdf_file:
