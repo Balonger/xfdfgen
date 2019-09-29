@@ -58,7 +58,7 @@ class Xfdf:
             name (str): path to the pdf document
             field_dictionary (Dict[str, str]): a dictionary with form field id as key and their values as value
         """
-
+        # Sanity checks
         if not name.endswith(".pdf"):
             raise ValueError("The document name must end with .pdf")
 
@@ -73,6 +73,7 @@ class Xfdf:
         Args:
             output_path: must be .xfdf extension
         """
+        # Sanity checks
         if not output_path.endswith(".xfdf"):
             raise ValueError("Output must end with .xfdf")
         if os.path.isfile(output_path):
