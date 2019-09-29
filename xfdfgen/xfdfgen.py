@@ -1,18 +1,23 @@
+import os
 import xml.dom.minidom
+from typing import Dict
 
 
-def xfdfgen(name, field_dictionary):
+def xfdfgen(name: str, field_dictionary: Dict[str, str]) -> xml.dom.minidom.Document:
     """
     Generates an xml.dom.minidom xml document in xfdf format given a pdf containing form fields
     and a dictionary containing the fields
-    :param name: path to the pdf document
-    :param field_dictionary: a dictionary with form field id as key and their values as value
-    :return: an xml.dom.minidom.Document in xfdf format
-    """
 
+    Args:
+        name (str): path to the pdf document
+        field_dictionary (Dict[str, str]): a dictionary with form field id as key and their values as value
+
+    Returns: an xml.dom.minidom.Document in xfdf format
+
+    """
     xfdf = xml.dom.minidom.Document()
 
-    # --------------------------------    xfdf peculiarities ------------------------------------
+    # xfdf peculiarities   #############################################################################################
     # see https://docs.aspose.com/display/pdfnet/Whats+the+Difference+Between+XML%2C+FDF+and+XFDF
 
     top = xfdf.createElement("xfdf")
@@ -24,7 +29,7 @@ def xfdfgen(name, field_dictionary):
     f.setAttribute("href", name)
     top.appendChild(f)
 
-    # ------------------------------   insert fields from dictionary   --------------------------------
+    # insert fields from field dictionary   ############################################################################
     fields = xfdf.createElement("fields")
     for field_name, field_value in field_dictionary.items():
         field = xfdf.createElement("field")
@@ -42,37 +47,46 @@ def xfdfgen(name, field_dictionary):
 
 
 class Xfdf:
-    def __init__(self, name, field_dictionary):
+    def __init__(self, name: str, field_dictionary: Dict[str, str]):
         """
         Initializes an xfdf form xml.
         Use .write_xfdf() to write to a file
         Use .get_xfdf to return the raw xfdf string
         Use .pretty_print to pretty print the xfdf file to console
 
-        :param name: path to the pdf document
-        :param field_dictionary: a dictionary with form field id as key and their values as value
+        Args:
+            name (str): path to the pdf document
+            field_dictionary (Dict[str, str]): a dictionary with form field id as key and their values as value
         """
+
+        if not name.endswith(".pdf"):
+            raise ValueError("The document name must end with .pdf")
+
         self.name = name
         self.field_dictionary = field_dictionary
         self.xfdf = xfdfgen(self.name, self.field_dictionary)
 
-    def write_xfdf(self, output_path):
+    def write_xfdf(self, output_path: str):
         """
         Writes the xfdf document to a file
-        :param output_path: must be .xfdf extension
-        :return:
-        """
-        with open(output_path, "w") as xfdf_file:
-            self.xfdf.writexml(xfdf_file, encoding='UTF-8')
 
-    def get_xfdf(self):
+        Args:
+            output_path: must be .xfdf extension
         """
-        :return: raw xfdf document
-        """
-        return self.xfdf
+        if not output_path.endswith(".xfdf"):
+            raise ValueError("Output must end with .xfdf")
+        if os.path.isfile(output_path):
+            raise OSError("The output file already exists.")
+
+        try:
+            with open(output_path, "w") as xfdf_file:
+                self.xfdf.writexml(xfdf_file, encoding='UTF-8')
+        except IOError:
+            print("Error whilst writing the file")
 
     def pretty_print(self):
         """
         Prints the xfdf document in a human legible format onto the console
+
         """
         print(self.xfdf.toprettyxml())

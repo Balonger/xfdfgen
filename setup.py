@@ -14,6 +14,7 @@ setuptools.setup(
     description='xfdfgen is a Python library for creating xfdf files that can be used to populate pdf form fields.',
     version='v0.1',
     long_description=README,
+    long_description_content_type='text/markdown',
     url='https://github.com/Balonger/xfdfgen',
     packages=setuptools.find_packages(),
     python_requires=">=3.7",
