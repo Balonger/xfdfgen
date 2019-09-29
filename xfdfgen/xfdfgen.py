@@ -47,7 +47,7 @@ def xfdfgen(name: str, field_dictionary: Dict[str, str]) -> xml.dom.minidom.Docu
 
 
 class Xfdf:
-    def __init__(self, name: str, field_dictionary: Dict[str, str]):
+    def __init__(self, name: str, field_dictionary: Dict[str, str]) -> None:
         """
         Initializes an xfdf form xml.
         Use .write_xfdf() to write to a file
@@ -62,11 +62,11 @@ class Xfdf:
         if not name.endswith(".pdf"):
             raise ValueError("The document name must end with .pdf")
 
-        self.name = name
-        self.field_dictionary = field_dictionary
+        self.name: str = name
+        self.field_dictionary: Dict[str, str] = field_dictionary
         self.xfdf = xfdfgen(self.name, self.field_dictionary)
 
-    def write_xfdf(self, output_path: str):
+    def write_xfdf(self, output_path: str) -> None:
         """
         Writes the xfdf document to a file
 
@@ -75,17 +75,17 @@ class Xfdf:
         """
         # Sanity checks
         if not output_path.endswith(".xfdf"):
-            raise ValueError("Output must end with .xfdf")
+            raise ValueError(f"Output must end with .xfdf\n{output_path} is not a valid output path.")
         if os.path.isfile(output_path):
-            raise OSError("The output file already exists.")
+            raise OSError(f"{output_path} already exists.")
 
         try:
             with open(output_path, "w") as xfdf_file:
                 self.xfdf.writexml(xfdf_file, encoding='UTF-8')
-        except IOError:
-            print("Error whilst writing the file")
+        except OSError:
+            print(f"Error while writing the file to {output_path}")
 
-    def pretty_print(self):
+    def pretty_print(self) -> None:
         """
         Prints the xfdf document in a human legible format onto the console
 

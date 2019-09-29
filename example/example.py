@@ -10,9 +10,9 @@ field_dictionary = {
     'last_name': 'bar'
 }
 
-document = Xfdf('example_pdf.pdf', "field_dictionary")
+document = Xfdf('example_pdf.pdf', field_dictionary)
 
 # Pretty print xfdf onto the console. Not strictly necessary, but makes sanity checks easier
-# document.pretty_print()
+document.pretty_print()
 
-# document.write_xfdf('example_output.xfdf')
+document.write_xfdf('example_output.xfdf')
