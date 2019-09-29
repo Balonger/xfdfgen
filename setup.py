@@ -12,7 +12,7 @@ setuptools.setup(
     name='xfdfgen',
     license="APACHE 2.0",
     description='xfdfgen is a Python library for creating xfdf files that can be used to populate pdf form fields.',
-    version='v0.1',
+    version='v0.2',
     long_description=README,
     long_description_content_type='text/markdown',
     url='https://github.com/Balonger/xfdfgen',
