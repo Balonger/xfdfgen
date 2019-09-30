@@ -42,6 +42,11 @@ The output can be imported with various programs/libraries, such as
 [Adobe Acrobat](https://acrobat.adobe.com/us/en/acrobat.html),
 and [pypdftk](https://github.com/revolunet/pypdftk).
 
+Alternatively, you can use [pdfformfields](https://github.com/Balonger/pdfformfields)
+which this package was created for. pdfformfields is capable
+of reading in the metadata of the pdf and 
+filling in the form for you.
+
 To view the xfdf file in a more human readable format, use
 
 ```python
