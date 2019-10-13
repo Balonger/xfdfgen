@@ -1,6 +1,7 @@
 import os
 import xml.dom.minidom
 from typing import Dict
+from shutil import copy2
 
 
 def xfdfgen(name: str, field_dictionary: Dict[str, str]) -> xml.dom.minidom.Document:
@@ -77,11 +78,8 @@ class Xfdf:
         if not output_path.endswith(".xfdf"):
             raise ValueError(f"Output must end with .xfdf\n{output_path} is not a valid output path.")
 
-        try:
-            with open(output_path, "w") as xfdf_file:
-                self.xfdf.writexml(xfdf_file, encoding='UTF-8')
-        except OSError:
-            print(f"Error while writing the file to {output_path}")
+        with open(output_path, "a", encoding="UTF-8") as xfdf_file:
+            self.xfdf.writexml(xfdf_file, encoding="UTF-8")
 
     def pretty_print(self) -> None:
         """
